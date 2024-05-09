@@ -1,0 +1,78 @@
+<div class="grid">
+  <div class="col-8">
+    <p-card [header]="cardTitle">
+      <div class="mb-3">
+        <p-floatLabel>
+          <input
+            id="title"
+            type="text"
+            pInputText
+            [(ngModel)]="title"
+            [ngClass]="{ 'ng-invalid ng-dirty': invalidTitle }"
+          />
+          <label for="title">Заглавие</label>
+        </p-floatLabel>
+        <small *ngIf="invalidTitle" id="username2-help" class="p-error block"
+          >Минимална дължина 5 символа.</small
+        >
+      </div>
+      <div class="mt-5 mb-5">
+        <p-floatLabel>
+          <textarea
+            id="desc"
+            rows="5"
+            cols="30"
+            pInputTextarea
+            [(ngModel)]="description"
+            [ngClass]="{ 'ng-invalid ng-dirty': invalidDesc }"
+          ></textarea>
+          <label for="desc">Описание</label>
+        </p-floatLabel>
+        <small *ngIf="invalidDesc" id="username2-help" class="p-error block"
+          >Минимална дължина 7 символа.</small
+        >
+      </div>
+      <div>
+        <button
+          pButton
+          pRipple
+          severity="success"
+          [label]="btnLabel"
+          (click)="addNote()"
+        ></button>
+      </div>
+    </p-card>
+  </div>
+  <div class="col-4">
+    <div *ngIf="notes && notes.length > 0">
+      <div *ngFor="let note of notes; let i = index">
+        <div class="mb-3 mt-3">
+          <p-card [header]="note.title" (click)="showButtons = true">
+            <h4>{{ note.description }}</h4>
+            <div>
+              <button
+                pButton
+                pRipple
+                severity="warning"
+                icon="pi pi-pencil"
+                size="small"
+                label="Редактирай"
+                (click)="editNote(i)"
+              ></button>
+              <button
+                pButton
+                pRipple
+                severity="danger"
+                icon="pi pi-trash"
+                size="small"
+                label="Изтрий"
+                class="ml-3"
+                (click)="deleteNote(i)"
+              ></button>
+            </div>
+          </p-card>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
